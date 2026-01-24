@@ -34,7 +34,7 @@ app.post("/send", async (req, res) => {
   const { message, orderId } = req.body;
 
   if (!message || !orderId) {
-    return res.status(400).json({ error: "message or orderId is required" });
+    return res.status(400).json({ error: "Dữ liệu gửi đi không hợp lệ, vui lòng kiểm tra lại" });
   }
 
   const data = {
