@@ -1,7 +1,7 @@
 {
   "name": "producer",
   "version": "1.0.0",
-  "main": "producer_dlq.js",
+  "main": "producer.js",
   "scripts": {
     "start": "node producer_dlq.js",
     "dev": "node --watch --watch-path=. producer_dlq.js"
