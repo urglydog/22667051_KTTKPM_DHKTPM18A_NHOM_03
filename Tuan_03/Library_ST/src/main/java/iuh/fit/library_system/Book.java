@@ -1,20 +1,26 @@
 package iuh.fit.library_system;
 
+// Interface Book
 public interface Book {
     String getTitle();
-    double getBasePrice(); // Phí mượn gốc
+    void display();
 }
 
+// Concrete Product: PaperBook
 class PaperBook implements Book {
     private String title;
     public PaperBook(String title) { this.title = title; }
-    public String getTitle() { return title + " (Sách giấy)"; }
-    public double getBasePrice() { return 10000; }
+    public String getTitle() { return title; }
+    public void display() { System.out.println("Sách giấy: " + title); }
 }
 
+// Concrete Product: EBook
 class EBook implements Book {
     private String title;
     public EBook(String title) { this.title = title; }
-    public String getTitle() { return title + " (E-Book)"; }
-    public double getBasePrice() { return 5000; }
+    public String getTitle() { return title; }
+    public void display() { System.out.println("Sách điện tử: " + title); }
 }
+
+// Factory
+
