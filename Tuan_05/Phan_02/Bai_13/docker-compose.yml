@@ -1,8 +1,8 @@
 version: "3.8"
 
 services:
-  react-app:
+  node-app:
     build: .
-    container_name: my_react_app
+    container_name: my_node_app
     ports:
-      - "3002:80"
+      - "3002:3000"
