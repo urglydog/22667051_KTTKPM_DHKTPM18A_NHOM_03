@@ -1,0 +1,26 @@
+server:
+  port: 8086
+
+spring:
+  application:
+    name: notification-service
+  cloud:
+    compatibility-verifier:
+      enabled: false
+  rabbitmq:
+    host: ${RABBITMQ_HOST:localhost}
+    port: ${RABBITMQ_PORT:5672}
+    username: ${RABBITMQ_USERNAME:guest}
+    password: ${RABBITMQ_PASSWORD:guest}
+
+eureka:
+  client:
+    service-url:
+      defaultZone: ${EUREKA_DEFAULT_ZONE:http://localhost:8761/eureka}
+
+app:
+  rabbitmq:
+    exchange: booking_exchange
+    notification-queue: notification_queue
+    payment-completed-routing-key: payment.completed
+    booking-failed-routing-key: booking.failed

@@ -1,0 +1,58 @@
+# --- IDE & OS ---
+.vscode/
+.idea/
+*.swp
+*.DS_Store
+Thumbs.db
+
+# --- Build & Dependencies (Node.js/Frontend/API Gateway) ---
+node_modules/
+dist/
+build/
+.npm
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.parcel-cache
+
+# --- Build & Dependencies (Java/Spring Boot) ---
+target/
+!.mvn/wrapper/maven-wrapper.jar
+*.class
+*.jar
+*.war
+*.ear
+*.log
+.mtj.tmp/
+.metadata/
+bin/
+
+# --- Docker & Environment ---
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+docker-compose.override.yml
+
+# --- Databases & Temporary Files ---
+*.db
+*.sqlite
+data/
+temp/
+tmp/
+
+# --- Compression Files (Giúp bỏ file .rar trong ảnh của bạn) ---
+*.rar
+*.zip
+*.7z
+*.tar.gz
+
+# --- Project Specific ---
+discovery-server/target/
+api-gateway/target/
+booking-service/target/
+movie-service/target/
+notification-service/target/
+payment-service/target/
+user-service/target/

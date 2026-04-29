@@ -1,0 +1,113 @@
+version: "3.8"
+
+services:
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+
+  discovery-server:
+    build:
+      context: ./discovery-server
+      dockerfile: Dockerfile
+    ports:
+      - "8761:8761"
+
+  api-gateway:
+    build:
+      context: ./api-gateway
+      dockerfile: Dockerfile
+    depends_on:
+      - discovery-server
+    ports:
+      - "8080:8080"
+    environment:
+      EUREKA_DEFAULT_ZONE: http://discovery-server:8761/eureka
+
+  user-service:
+    build:
+      context: ./user-service
+      dockerfile: Dockerfile
+    depends_on:
+      - discovery-server
+      - rabbitmq
+    ports:
+      - "8081:8081"
+    environment:
+      EUREKA_DEFAULT_ZONE: http://discovery-server:8761/eureka
+      RABBITMQ_HOST: rabbitmq
+      RABBITMQ_PORT: 5672
+      RABBITMQ_USERNAME: guest
+      RABBITMQ_PASSWORD: guest
+
+  movie-service:
+    build:
+      context: ./movie-service
+      dockerfile: Dockerfile
+    depends_on:
+      - discovery-server
+    ports:
+      - "8082:8082"
+    environment:
+      EUREKA_DEFAULT_ZONE: http://discovery-server:8761/eureka
+
+  booking-service:
+    build:
+      context: ./booking-service
+      dockerfile: Dockerfile
+    depends_on:
+      - discovery-server
+      - rabbitmq
+    ports:
+      - "8083:8083"
+    environment:
+      EUREKA_DEFAULT_ZONE: http://discovery-server:8761/eureka
+      RABBITMQ_HOST: rabbitmq
+      RABBITMQ_PORT: 5672
+      RABBITMQ_USERNAME: guest
+      RABBITMQ_PASSWORD: guest
+
+  payment-service:
+    build:
+      context: ./payment-service
+      dockerfile: Dockerfile
+    depends_on:
+      - discovery-server
+      - rabbitmq
+    ports:
+      - "8084:8084"
+    environment:
+      EUREKA_DEFAULT_ZONE: http://discovery-server:8761/eureka
+      RABBITMQ_HOST: rabbitmq
+      RABBITMQ_PORT: 5672
+      RABBITMQ_USERNAME: guest
+      RABBITMQ_PASSWORD: guest
+
+  notification-service:
+    build:
+      context: ./notification-service
+      dockerfile: Dockerfile
+    depends_on:
+      - discovery-server
+      - rabbitmq
+    ports:
+      - "8086:8086"
+    environment:
+      EUREKA_DEFAULT_ZONE: http://discovery-server:8761/eureka
+      RABBITMQ_HOST: rabbitmq
+      RABBITMQ_PORT: 5672
+      RABBITMQ_USERNAME: guest
+      RABBITMQ_PASSWORD: guest
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    depends_on:
+      - api-gateway
+    ports:
+      - "8085:80"

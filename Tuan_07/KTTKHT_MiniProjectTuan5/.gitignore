@@ -1,0 +1,8 @@
+# Environment files with secrets
+*/.env
+.env
+*.env.local
+*.env.*.local
+
+# Keep example files
+!.env.example
