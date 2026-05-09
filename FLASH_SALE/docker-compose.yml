@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  # 1. Thành phần Data Grid
+  redis:
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+    networks:
+      - flash-sale-net
+
+  # 2. Thành phần xử lý đơn hàng
+  order-service:
+    build: ./order-service
+    ports:
+      - "8083:8083"
+    environment:
+      - SPRING_DATA_REDIS_HOST=redis # Vì Redis chạy cùng máy nên để là 'redis'
+      # Sửa IP dưới đây thành IP của máy bạn đang chạy Cart Service
+      - SERVICE_CART_URL=http://192.168.1.XX:8082 
+      # Sửa IP dưới đây thành IP của máy bạn đang chạy Inventory Service
+      - SERVICE_INVENTORY_URL=http://192.168.1.YY:8084 
+    depends_on:
+      - redis
+    networks:
+      - flash-sale-net
+
+networks:
+  flash-sale-net:
+    driver: bridge
