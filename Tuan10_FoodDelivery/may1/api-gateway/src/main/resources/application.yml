@@ -1,0 +1,28 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      globalcors:
+        add-to-gateway-request-chain: true
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+            allowedHeaders: "*"
+      routes:
+        - id: user-food-service
+          uri: http://192.168.1.11:8081
+          predicates:
+            - Path=/api/users/**, /api/foods/**
+        - id: order-service
+          uri: http://192.168.1.12:8082
+          predicates:
+            - Path=/api/orders/**
